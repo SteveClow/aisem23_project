@@ -25,7 +25,14 @@ def get_data(raw_data: list) -> dict:
                 - min_value (float): minimum value
                 - max_value (float): maximum value
     """
-    return {}
+    similarity = [int(d["similarity"]) for d in raw_data if d["similarity"]]
+    return dict(component="similarity",
+                data=similarity,
+                mean=np.mean(similarity),
+                std=np.std(similarity),
+                max_value=np.max(similarity),
+                min_value=np.min(similarity)
+                )
     
 def draw_component(data_array: list) -> dcc.Graph:
     """[OPTIONAL]
