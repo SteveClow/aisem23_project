@@ -5,28 +5,16 @@ import plotly.graph_objs as go
 
 
 def get_data(raw_data: list) -> dict:
-    """Implement the function that extracts number of H-bonds acceptors per molecule from raw ChEMBL data
-       Computes mean, median and standard deviation, max/min values, quartiles and interquartile range
-       
-    Hints:
-       - Number of H-bond acceptors is located in attribute `hba` of `molecule_properties`
-       - Make sure to exclude None values
-       - When input is empty, the method should return an empty dictionary
+    hba_values = [int(d["molecule_properties"]["hba"]) for d in raw_data if d["molecule_properties"]["hba"]]
+    return dict(component="Number of H-bond donors",
+                data=hba_values,
+                mean=np.mean(hba_values),
+                std=np.std(hba_values),
+                max_value=np.max(hba_values),
+                min_value=np.min(hba_values)
+                )
 
-    Args:
-        raw_data (list): ChEMBL output: see callbacks/data_schema.py for description
-                         
-    Returns:
-        dict: the following attributes have to be included in the output
-                - component (str): name of the component
-                - data (list): array of integers, actual values
-                - mean (float): average value
-                - std (float): standard deviation
-                - min_value (float): minimum value
-                - max_value (float): maximum value
 
-    """
-    return {}
     
 def draw_component(data_array: list) -> dcc.Graph:
     """[OPTIONAL]
